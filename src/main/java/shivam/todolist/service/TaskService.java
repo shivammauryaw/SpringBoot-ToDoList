@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import shivam.todolist.dao.TaskDao;
 import shivam.todolist.model.Task;
+import shivam.todolist.model.TaskStatsDTO;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -99,5 +100,16 @@ public class TaskService {
             e.printStackTrace();
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+    }
+
+    public ResponseEntity<TaskStatsDTO> getStats() {
+        TaskStatsDTO stats = new TaskStatsDTO();
+
+        stats.setTotal(taskDao.count());
+        stats.setCompleted(taskDao.countByStatus("Completed"));
+        stats.setPending(taskDao.countByStatus("Pending"));
+        stats.setInProgress(taskDao.countByStatus("In Progress"));
+
+        return new ResponseEntity<>(stats, HttpStatus.OK);
     }
 }

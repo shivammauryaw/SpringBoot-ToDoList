@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shivam.todolist.model.Task;
+import shivam.todolist.model.TaskStatsDTO;
 import shivam.todolist.service.TaskService;
 
 import java.util.List;
@@ -52,5 +53,10 @@ public class TaskController {
     @GetMapping("/todaytasks")
     public ResponseEntity<List<Task>> gettodaytasks() {
         return taskService.gettodaytasks();
+    }
+
+    @GetMapping("/task/stats")
+    public ResponseEntity<TaskStatsDTO> getStats() {
+        return taskService.getStats();
     }
 }

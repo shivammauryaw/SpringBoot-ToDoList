@@ -17,4 +17,6 @@ public interface TaskDao extends JpaRepository<Task, Integer> {
     List<Task> findByCategory(String category);
 
     List<Task> findByDate(LocalDate date);
+
+    Integer countByStatus(String status);
 }
