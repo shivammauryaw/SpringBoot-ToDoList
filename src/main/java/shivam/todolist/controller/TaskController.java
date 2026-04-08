@@ -19,9 +19,19 @@ public class TaskController {
         return taskService.showAllTasks();
     }
 
-    @GetMapping("/showcompleted")
-    public ResponseEntity<List<Task>> showCompletedTasks() {
-        return taskService.showCompletedTasks();
+    @GetMapping("/showbystatus/{status}")
+    public ResponseEntity<List<Task>> showTaskByStatus(@PathVariable String status) {
+        return taskService.showTaskByStatus(status);
+    }
+
+    @GetMapping("/showbypriority/{priority}")
+    public ResponseEntity<List<Task>> showTaskByPriority(@PathVariable String priority) {
+        return taskService.showTaskByPriority(priority);
+    }
+
+    @GetMapping("/showbycategory/{category}")
+    public ResponseEntity<List<Task>> showTaskByCategory(@PathVariable String category) {
+        return taskService.showTaskByCategory(category);
     }
 
     @PostMapping("/add")
@@ -37,5 +47,10 @@ public class TaskController {
     @PutMapping("/updatetask/{id}")
     public ResponseEntity<String> updateTask(@PathVariable Integer id, @RequestBody Task task) {
         return taskService.updateTask(id, task);
+    }
+
+    @GetMapping("/todaytasks")
+    public ResponseEntity<List<Task>> gettodaytasks() {
+        return taskService.gettodaytasks();
     }
 }

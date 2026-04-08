@@ -12,12 +12,3 @@ public class TodolistApplication {
 	}
 
 }
-
-
-//show all tasks
-//add task
-//move to complete task
-//remove task
-//update task
-
-//have time limit or dates

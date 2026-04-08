@@ -16,6 +16,8 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     private String Task_name;
-    private LocalDate Date;
-    private boolean completed;
+    private LocalDate date;
+    private String priority;
+    private String category;
+    private String status;
 }
