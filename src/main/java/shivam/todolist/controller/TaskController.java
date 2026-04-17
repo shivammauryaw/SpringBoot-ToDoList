@@ -21,19 +21,19 @@ public class TaskController {
        return ResponseEntity.ok(tasks);
     }
 
-    @GetMapping("/tasks/{status}")
+    @GetMapping("/tasks/status/{status}")
     public ResponseEntity<List<Task>> showTaskByStatus(@PathVariable String status) {
         List<Task> tasks = taskService.showTaskByStatus(status);
         return ResponseEntity.ok(tasks);
     }
 
-    @GetMapping("/tasks/{priority}")
+    @GetMapping("/tasks/priority/{priority}")
     public ResponseEntity<List<Task>> showTaskByPriority(@PathVariable String priority) {
         List<Task> tasks = taskService.showTaskByPriority(priority);
         return ResponseEntity.ok(tasks);
     }
 
-    @GetMapping("/tasks/{category}")
+    @GetMapping("/tasks/category/{category}")
     public ResponseEntity<List<Task>> showTaskByCategory(@PathVariable String category) {
         List<Task> tasks = taskService.showTaskByCategory(category);
         return ResponseEntity.ok(tasks);
@@ -42,13 +42,13 @@ public class TaskController {
     @PostMapping("/addtask")
     public ResponseEntity<String> addTask(@RequestBody Task task) {
         taskService.addTask(task);
-        return ResponseEntity.ok("Added");
+        return ResponseEntity.ok("Task Added");
     }
 
     @DeleteMapping("/deletetask/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable Integer id) {
         taskService.deleteTask(id);
-        return ResponseEntity.ok("Deleted");
+        return ResponseEntity.ok("Task Deleted");
     }
 
     @PutMapping("/updatetask/{id}")
