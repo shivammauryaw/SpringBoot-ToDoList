@@ -18,91 +18,49 @@ public class TaskService {
     @Autowired
     TaskDao taskDao;
 
-    public ResponseEntity<List<Task>> showAllTasks() {
-        try {
-            return new ResponseEntity<>(taskDao.findAll(), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+    public List<Task> showAllTasks() {
+        return taskDao.findAll();
     }
 
-    public ResponseEntity<List<Task>> showTaskByStatus(String status) {
-        try {
-            return new ResponseEntity<>(taskDao.findByStatus(status), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+    public List<Task> showTaskByStatus(String status) {
+        return taskDao.findByStatus(status);
     }
 
-    public ResponseEntity<String> addTask(Task task) {
-        try {
-            taskDao.save(task);
-            return new ResponseEntity<>("Task Added", HttpStatus.OK);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>("Failed", HttpStatus.BAD_REQUEST);
+    public Task addTask(Task task) {
+        return taskDao.save(task);
     }
 
 
-    public ResponseEntity<String> deleteTask(Integer id) {
-        try {
-            taskDao.deleteById(id);
-            return new ResponseEntity<>("Task Deleted", HttpStatus.OK);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>("Failed", HttpStatus.BAD_REQUEST);
+    public void deleteTask(Integer id) {
+        taskDao.deleteById(id);
     }
 
-    public ResponseEntity<String> updateTask(Integer id, Task task) {
-        try {
+    public String updateTask(Integer id, Task task) {
             if(!taskDao.existsById(id)) {
-                return new ResponseEntity<>("Task Not Found", HttpStatus.NOT_FOUND);
+                return("Task Not Found");
             }
 
             task.setId(id);
             taskDao.save(task);
 
-            return new ResponseEntity<>("Updated", HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>("Failed", HttpStatus.BAD_REQUEST);
+            return("Updated");
     }
 
-    public ResponseEntity<List<Task>> showTaskByPriority(String priority) {
-        try {
-            return new ResponseEntity<>(taskDao.findByPriority(priority), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+    public List<Task> showTaskByPriority(String priority) {
+        return taskDao.findByPriority(priority);
     }
 
-    public ResponseEntity<List<Task>> showTaskByCategory(String category) {
-        try {
-            return new ResponseEntity<>(taskDao.findByCategory(category), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+    public List<Task> showTaskByCategory(String category) {
+        return taskDao.findByCategory(category);
     }
 
-    public ResponseEntity<List<Task>> gettodaytasks() {
-        try {
+    public List<Task> gettodaytasks() {
             LocalDate today = LocalDate.now();
             List<Task> tasks = taskDao.findByDate(today);
-            return new ResponseEntity<>(tasks, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+            return tasks;
     }
 
-    public ResponseEntity<TaskStatsDTO> getStats() {
+    public TaskStatsDTO getStats() {
         TaskStatsDTO stats = new TaskStatsDTO();
 
         stats.setTotal(taskDao.count());
@@ -110,6 +68,6 @@ public class TaskService {
         stats.setPending(taskDao.countByStatus("Pending"));
         stats.setInProgress(taskDao.countByStatus("In Progress"));
 
-        return new ResponseEntity<>(stats, HttpStatus.OK);
+        return stats;
     }
 }

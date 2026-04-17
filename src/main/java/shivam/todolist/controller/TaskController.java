@@ -15,48 +15,57 @@ public class TaskController {
     @Autowired
     TaskService taskService;
 
-    @GetMapping("/showall")
+    @GetMapping("/tasks")
     public ResponseEntity<List<Task>> showAllTasks() {
-        return taskService.showAllTasks();
+       List<Task> tasks = taskService.showAllTasks();
+       return ResponseEntity.ok(tasks);
     }
 
-    @GetMapping("/showbystatus/{status}")
+    @GetMapping("/tasks/{status}")
     public ResponseEntity<List<Task>> showTaskByStatus(@PathVariable String status) {
-        return taskService.showTaskByStatus(status);
+        List<Task> tasks = taskService.showTaskByStatus(status);
+        return ResponseEntity.ok(tasks);
     }
 
-    @GetMapping("/showbypriority/{priority}")
+    @GetMapping("/tasks/{priority}")
     public ResponseEntity<List<Task>> showTaskByPriority(@PathVariable String priority) {
-        return taskService.showTaskByPriority(priority);
+        List<Task> tasks = taskService.showTaskByPriority(priority);
+        return ResponseEntity.ok(tasks);
     }
 
-    @GetMapping("/showbycategory/{category}")
+    @GetMapping("/tasks/{category}")
     public ResponseEntity<List<Task>> showTaskByCategory(@PathVariable String category) {
-        return taskService.showTaskByCategory(category);
+        List<Task> tasks = taskService.showTaskByCategory(category);
+        return ResponseEntity.ok(tasks);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/addtask")
     public ResponseEntity<String> addTask(@RequestBody Task task) {
-        return taskService.addTask(task);
+        taskService.addTask(task);
+        return ResponseEntity.ok("Added");
     }
 
     @DeleteMapping("/deletetask/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable Integer id) {
-        return taskService.deleteTask(id);
+        taskService.deleteTask(id);
+        return ResponseEntity.ok("Deleted");
     }
 
     @PutMapping("/updatetask/{id}")
     public ResponseEntity<String> updateTask(@PathVariable Integer id, @RequestBody Task task) {
-        return taskService.updateTask(id, task);
+        String message = taskService.updateTask(id, task);
+        return ResponseEntity.ok(message);
     }
 
     @GetMapping("/todaytasks")
     public ResponseEntity<List<Task>> gettodaytasks() {
-        return taskService.gettodaytasks();
+        List<Task> tasks = taskService.gettodaytasks();
+        return ResponseEntity.ok(tasks);
     }
 
     @GetMapping("/task/stats")
     public ResponseEntity<TaskStatsDTO> getStats() {
-        return taskService.getStats();
+        TaskStatsDTO status = taskService.getStats();
+        return ResponseEntity.ok(status);
     }
 }
